@@ -3,8 +3,6 @@
    [reagent.core :as r]
    [cljsjs.react-vis :as rvis]))
 
-;;;; Chart data
-
 (def chart-data [{:x 1 :y 1}
                  {:x 2 :y 2}
                  {:x 3 :y 4}
@@ -16,11 +14,11 @@
                  {:x 9 :y 5}
                  {:x 10 :y 5}])
 
-;;;; HTML IDs
-
-(def html-id-app "app")
-
-;;;; Components
+(def axis-style {:line {:stroke "#333"
+                        :strokeLinecap "square"}
+                 :ticks {:stroke "#999"}
+                 :text {:stroke "none"
+                        :fill "#333"}})
 
 (defn line-chart [data]
   [:> rvis/XYPlot
@@ -31,19 +29,11 @@
     {:tickTotal 10
      :tickSizeInner 0
      :tickSizeOuter 3
-     :style {:line {:stroke "#333"
-                    :strokeLinecap "square"}
-             :ticks {:stroke "#999"}
-             :text {:stroke "none"
-                    :fill "#333"}}}]
+     :style axis-style}]
    [:> rvis/YAxis
     {:tickSizeInner 0
      :tickSizeOuter 3
-     :style {:line {:stroke "#333"
-                    :strokeLinecap "square"}
-             :ticks {:stroke "#999"}
-             :text {:stroke "none"
-                    :fill "#333"}}}]
+     :style axis-style}]
    [:> rvis/LineSeries
     {:data data
      :color "#e47320"
@@ -54,13 +44,10 @@
 
 (defn app-scaffold []
   [:div
-   [:h3 "Line chart"]
    [line-chart chart-data]])
-
-;;;; Rendering
 
 (defn render-app []
   (r/render [app-scaffold]
-            (.getElementById js/document html-id-app)))
+            (.getElementById js/document "app")))
 
 (render-app)

@@ -4,7 +4,7 @@
   (:require [cljs.test :refer-macros [deftest is testing run-tests]]
             [cljs_reagent_proj.core :as core]))
 
-(deftest say-hi-test
+#_(deftest say-hi-test
   (is (= "Hi from core.cljs!" (core/say-hi))))
 
-(run-tests)
+#_(run-tests)
